@@ -1,0 +1,36 @@
+Arguments: 
+  /home/folorunsho/.nvm/versions/node/v18.8.0/bin/node /home/folorunsho/.nvm/versions/node/v18.8.0/bin/yarn add @graphql-tools
+
+PATH: 
+  /home/folorunsho/.nvm/versions/node/v18.8.0/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.8.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@graphql-tools: Request "https://registry.yarnpkg.com/@graphql-tools" returned a 405
+      at params.callback [as _callback] (/home/folorunsho/.nvm/versions/node/v18.8.0/lib/node_modules/yarn/lib/cli.js:66154:18)
+      at self.callback (/home/folorunsho/.nvm/versions/node/v18.8.0/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/home/folorunsho/.nvm/versions/node/v18.8.0/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/home/folorunsho/.nvm/versions/node/v18.8.0/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
