@@ -1,45 +1,43 @@
-import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
+import express from "express";
+import models from "./models";
+import path from "path";
 import { ApolloServer } from "apollo-server-express";
-import { makeExecutableSchema } from "@graphql-tools/schema";
+import { loadFilesSync } from "@graphql-tools/load-files";
+import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
 
-import typeDefs from "./schema";
-import resolvers from "./resolvers";
-
+const port = 8081;
 const app = express();
 
 app.use(bodyParser.json());
-
-const server = new ApolloServer({
-  introspection: true,
-  typeDefs,
-  resolvers,
-
-  formatError: (error) => {
-    return error;
-  },
-
-  context: ({ req, res }) => {
-    return {
-      req,
-      res,
-    };
-  },
-});
+app.use(cors("http://localhost:3000/"));
+const resolvers = mergeResolvers(
+  loadFilesSync(path.join(__dirname, "./resolvers"), { extensions: ["js"] })
+);
+const typeDefs = mergeTypeDefs(
+  loadFilesSync(path.join(__dirname, "./schema"), { extensions: ["js"] })
+);
 
 const startServer = async () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    context: {
+      models,
+      user: {
+        id: 1,
+      },
+    },
   });
   await apolloServer.start();
-  await apolloServer.applyMiddleware({ app, path: "/graphql" });
+  apolloServer.applyMiddleware({ app });
 };
 
 startServer();
 
-// server.applyMiddleware({ app, path: "/graphql" });
-
-app.listen({ port: 8080 }, () => {
-  console.log(`🚀 Server ready at http://localhost:8080`);
+models.sequelize.sync().then(() => {
+  app.listen(port, () => {
+    console.log(`Server Running on localhost:${port}/graphql`);
+  });
 });
