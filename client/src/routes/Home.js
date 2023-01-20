@@ -1,22 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 
-const allUserQuery = gql`
-  query {
-    allUser {
-      id
-      email
-      username
-    }
-  }
-`;
-
 const Home = () => {
   const { loading, error, data } = useQuery(allUserQuery);
 
-  console.log(data.allUser);
-
   if (loading) return <div>Loading Request...</div>;
   if (error) return <div>Error: {error.message}</div>;
+
+  console.log(data.allUser);
 
   return (
     <div>
@@ -34,5 +24,15 @@ const Home = () => {
     </div>
   );
 };
+
+const allUserQuery = gql`
+  query {
+    allUser {
+      id
+      email
+      username
+    }
+  }
+`;
 
 export default Home;
